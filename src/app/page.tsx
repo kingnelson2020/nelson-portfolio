@@ -1,12 +1,9 @@
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
-      <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">
-        Nelson Molokwu
-      </h1>
-      <p className="mt-4 max-w-md font-sans text-lg text-slate-400">
-        Full-Stack Engineer & AI Integration Specialist.
-      </p>
-    </div>
+    <main className="pt-16">
+      {Array.from({ length: 20 }).map((_, i) => (
+        <p key={i} className="p-8 text-muted-foreground">Placeholder line {i + 1}</p>
+      ))}
+    </main>
   );
 }

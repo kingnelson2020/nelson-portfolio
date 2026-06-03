@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ['400', '500'],
 });
@@ -33,11 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-inter antialiased bg-background text-foreground`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} dark`}>
+      <body>
+
+        <main className="pt-16">{children}</main>
       </body>
     </html>
   );
