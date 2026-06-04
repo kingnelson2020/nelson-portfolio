@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProjectStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum BlogPostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Project {
+  id                String   @id @default(cuid())
+  title             String
+  slug              String   @unique
+  shortDescription  String
+  coverImage        String
+  liveurl           String?
+  githuburl         String?
+  technologies      Technology[]
+  featured          Boolean   @default(false)
+  status            ProjectStatus
+  displayOrder      Int
+  isPublished       Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Technology {
+  id                String    @id @default(cuid())
+  name              String
+  slug              String    @unique
+  icon              String
+  projects          Project[]
+  category          String
+  color             String
+  isActive          Boolean   @default(true)
+  displayOrder      Int
+  createdAt         DateTime  @default(now())
+}
+
+/*  id, title, slug, excerpt, content, coverImage, tags, readingTime, featured, isPublished, publishedAt, createdAt, updatedAt, status */
+model BlogPost {
+  id                String    @id @default(cuid())
+  title             String
+  slug              String    @unique
+  excerpt           String
+  content           String
+  coverImage        String
+  tags              Tag[]
+  readingTime       Int
+  featured          Boolean   @default(false)
+  status            BlogPostStatus
+  isPublished       Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  publishedAt       DateTime?
+  updatedAt         DateTime  @updatedAt
+}
+
+model Tag {
+  id                String    @id @default(cuid())
+  name              String
+  slug              String    @unique
+  blogPosts         BlogPost[]
+  createdAt         DateTime  @default(now())
+}
+
+model ContactMessage {
+  id                 String   @id @default(cuid())
+  name               String
+  email              String
+  message            String
+  isReplied          Boolean  @default(false)
+  createdAt          DateTime @default(now())
+}
