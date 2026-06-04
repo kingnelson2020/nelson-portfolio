@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/layout/Navbar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ['400', '500'],
 });
@@ -33,10 +35,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} dark`}>
+    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}>
       <body>
-
-        <main className="pt-16">{children}</main>
+        <ThemeProvider>
+          
+          <main>{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );

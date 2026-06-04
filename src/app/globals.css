@@ -1,62 +1,86 @@
 @import "tailwindcss";
+@import "shadcn/tailwind.css";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 /* global CSS */
-@theme {
-  /* Brand Identity colors */
-  --color-background: #0F172A;
-  --color-foreground: #F8FAFC;
-  --color-primary: #7C3AED;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #1E293B;
-  --color-accent: #A78BFA;
-  --color-muted: #94A3B8;
-  --color-danger: #F43F5E;
-  --color-success: #34D399;
-  --color-border: rgba(255, 255, 255, 0.08);
-  
-  --font-display: var(--font-space-grotesk);
-  --font-body: var(--font-inter);
-  --font-mono: var(--font-mono);
-  
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  
-  --spacing: 4px;
+
+@theme inline {
+  /* Fonts */
+  --font-heading: var(--font-space-grotesk);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  /* Semantic colors */
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+
+  /* radius scale */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.1469 0.0041 49.25);
+  --primary: oklch(0.8369 0.1644 84.43);
+  --primary-foreground: oklch(0.1871 0.0255 54.63);
+  --secondary: oklch(0.1908 0.0077 48.3);
+  --secondary-foreground: oklch(0.9699 0.0013 106.42);
+  --accent: oklch(0.8369 0.1644 84.43);
+  --accent-foreground: oklch(0.1871 0.0255 54.63);
+  --surface: oklch(0.1908 0.0077 48.3);
+  --surface-hover: oklch(0.2737 0.0147 39.28);
+  --card: oklch(0.1908 0.0077 48.3);
+  --card-hover: oklch(0.2737 0.0147 39.28);
+  --card-foreground: oklch(0.9699 0.0013 106.42);
+  --border: oklch(0.2737 0.0147 39.28);
+  --border-hover: oklch(0.7161 0.0091 56.26);
+  --foreground: oklch(0.9699 0.0013 106.42);
+  --muted: oklch(0.7161 0.0091 56.26);
+  --muted-foreground: oklch(0.7161 0.0091 56.26);
+  --popover: oklch(0.1908 0.0077 48.3);
+  --popover-foreground: oklch(0.9699 0.0013 106.42);
+  --ring: oklch(0.8369 0.1644 84.43);
+  --destructive: oklch(0.577 0.245 27.325);
 }
 
 @layer base {
-  html{
-    background-color: var(--color-background);
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+  * {
+    @apply border-border outline-ring/50;
   }
-  
-  body{
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
+ 
+  body {
+    @apply bg-background text-foreground font-sans;
   }
-}
 
-/* Always last- no layer wrapper */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  h1,h2,h3,h4,h5,h6 {
+    @apply font-heading;
+  }
+
+  code, pre, kbd {
+    @apply font-mono;
   }
 }
