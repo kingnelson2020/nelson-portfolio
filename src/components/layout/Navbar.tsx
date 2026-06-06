@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import MobileMenu from "./MobileMenu";
 
 /* Nav links declared as data array */
 const navLinks = [
@@ -22,7 +23,7 @@ export default function Navbar () {
           setScrolled(window.scrollY > 24);
           if (window.scrollY < 50) setActiveSection("#");
         };
-        
+
         window.addEventListener("scroll", onscroll, { passive: true });
         return () => window.removeEventListener("scroll", onscroll);
     }, []);
@@ -59,28 +60,37 @@ export default function Navbar () {
     }, []);
 
     return (
-      <header className="fixed top-7 left-0 right-0 z-50 mx-auto w-full flex justify-center px-4">
-        <nav
-          className={`flex items-center justify-between w-full max-w-3xl py-3 px-8 rounded-full border transition-all duration-500 ${scrolled ? "bg-background/80 border-border backdrop-blur-lg shadow-lg" : "bg-background/40 border-border/40 backdrop-blur-md"}`}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`group relative
+      <>
+        <header className="fixed top-7 left-0 right-0 z-500 mx-auto w-full flex justify-center px-4">
+          <nav
+            className={`hidden md:flex items-center justify-between w-full max-w-3xl py-3 px-8 rounded-full border transition-all duration-500 ${scrolled ? "bg-background/80 border-border backdrop-blur-lg shadow-lg" : "bg-background/40 border-border/40 backdrop-blur-md"}`}
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`group relative
                 text-base font-medium
                 tracking-wider
                 transition-colors duration-300 ${activeSection === link.href ? "text-primary" : "text-foreground/80"}`}
-            >
-              {link.label}
-              <span
-                className="absolute -bottom-1.5 left-0 h-[2px] w-0 rounded-full
+              >
+                {link.label}
+                <span
+                  className="absolute -bottom-1.5 left-0 h-0.5 w-0 rounded-full
                 bg-primary transition-all duration-500 ease-in-out
                 group-hover:w-full"
-              />
-            </Link>
-          ))}
-        </nav>
-      </header>
+                />
+              </Link>
+            ))}
+          </nav>
+          {/* Mobile Menu - hidden on desktop */}
+        </header>
+        <div className="md:hidden flex justify-center pt-8 px-4">
+          <MobileMenu
+            navLinks={navLinks}
+            activeSection={activeSection}
+            onClose={() => setActiveSection(activeSection)}/>
+        </div>
+      </>
     );
 }
