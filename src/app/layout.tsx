@@ -38,7 +38,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}>
       <body>
         <ThemeProvider>
-          
+          {/* Render Navbar */}
+          <Navbar />
           <main>{children}</main>
         </ThemeProvider>
       </body>
